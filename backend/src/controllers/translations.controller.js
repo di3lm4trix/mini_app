@@ -26,6 +26,8 @@ const getTranslationsByLang = async (request, response) => {
     const msg = await translate("server_error", lang);
     return response.status(500).json({ error: msg });
   }
+
+  console.log("one translation is required");
 };
 
 module.exports = { getTranslationsByLang };

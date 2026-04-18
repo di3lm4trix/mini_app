@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
-import PricelistPage from "./pages/PricelistPage";
+// import PricelistPage from "./pages/PricelistPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -15,11 +15,7 @@ const App = () => {
       {/* protected */}
       <Route
         path="/pricelist"
-        element={
-          <ProtectedRoute>
-            <PricelistPage />
-          </ProtectedRoute>
-        }
+        element={<ProtectedRoute>{/* <PricelistPage /> */}</ProtectedRoute>}
       />
 
       {/* another unkown route */}

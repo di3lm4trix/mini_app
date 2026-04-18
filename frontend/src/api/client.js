@@ -26,7 +26,7 @@ const handleResponse = async (response) => {
   return data;
 };
 
-export const apliClient = {
+export const apiClient = {
   get: (endpoint) =>
     fetch(`${BASE_URL}${endpoint}`, {
       method: "GET",
