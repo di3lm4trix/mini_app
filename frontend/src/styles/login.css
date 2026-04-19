@@ -1,3 +1,8 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+
 .login-page {
   min-height: 100vh;
   background-image: url("https://storage.123fakturera.se/public/wallpapers/sverige43.jpg");
@@ -11,12 +16,12 @@
 }
 
 .login-header {
-  height: 72px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  background: rgba(0, 0, 0, 0.28);
+  /* background: rgba(0, 0, 0, 0.28); */
 }
 
 .login-header__logo {
@@ -27,12 +32,16 @@
 /* nav of desktop */
 .login-header__nav {
   display: none;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+  margin-right: 10%;
 }
 
 .nav-link {
   color: #ffffff;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 600;
   padding: 6px 14px;
   border-radius: 6px;
   text-decoration: none;
@@ -50,7 +59,7 @@
   align-items: center;
   gap: 7px;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
   padding: 6px 14px;
   border-radius: 6px;
@@ -168,13 +177,20 @@
   padding: 24px 16px;
 }
 
+.login-header__right {
+  display: flex;
+  align-items: center;
+}
+
 .login-card {
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
   padding: 44px 48px 36px;
   width: 100%;
-  max-width: 460px;
+  max-height: 500px;
+  max-width: 380px;
+  margin-bottom: 100px;
 }
 
 .login-card__title {
@@ -183,6 +199,7 @@
   color: #e53224;
   text-align: center;
   margin-bottom: 28px;
+  margin-top: 0;
   letter-spacing: -0.5px;
 }
 
@@ -205,6 +222,7 @@
 }
 
 .form-field input {
+  box-sizing: border-box;
   height: 48px;
   padding: 0 16px;
   border: 1px solid #d0d0d0;
@@ -314,11 +332,60 @@
   text-decoration: underline;
 }
 
+.login-footer {
+  width: 100%;
+  color: #fff;
+  margin-top: auto;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 0 32px;
+  margin-bottom: 10px;
+}
+.footer-logo {
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.footer-nav a:hover {
+  opacity: 1;
+}
+
+.footer-divider {
+  width: 95%;
+  height: 1px;
+  background-color: #fff;
+  margin: 15px auto;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.6;
+  padding-bottom: 10px;
+}
+
 /* RESPONSIVE */
 /* tablet */
 @media (min-width: 768px) {
   .login-card {
-    max-width: 500px;
+    max-width: 400px;
     padding: 48px 56px 40px;
   }
 }
@@ -332,6 +399,9 @@
     display: flex;
     align-items: center;
     gap: 4px;
+  }
+  .mobile-nav {
+    display: none;
   }
 }
 

@@ -10,10 +10,11 @@ const FLAG_SV = "https://storage.123fakturere.no/public/flags/SE.png";
 const DIAMONT = "https://storage.123fakturera.se/public/icons/diamond.png";
 
 const NAV_LINKS = [
-  { key: "nav_pricing", href: "#" },
-  { key: "nav_features", href: "#" },
-  { key: "nav_about", href: "#" },
-  { key: "nav_contact", href: "#" },
+  { key: "nav_home", href: "#" },
+  { key: "nav_order", href: "#" },
+  { key: "nav_customers", href: "#" },
+  { key: "nav_about_us", href: "#" },
+  { key: "nav_contact_us", href: "#" },
 ];
 
 const LoginPage = () => {
@@ -72,21 +73,16 @@ const LoginPage = () => {
               {t(link.key)}
             </a>
           ))}
+
+          <button className="nav-lang" onClick={() => switchLang(otherLang)}>
+            {otherLabel}
+            <img src={otherFlag} alt={otherLabel} />
+          </button>
         </nav>
 
+        {/* right group */}
         <div className="login-header__right">
           {/* lang selector */}
-          <div className="lang_switcher">
-            <button
-              className="lang-button"
-              onClick={() => switchLang(otherLang)}
-              aria-label={`Switch to ${otherLabel}`}
-            >
-              <img src={otherFlag} alt={otherLabel} />
-              {otherLabel}
-            </button>
-          </div>
-
           <button
             className={`hamburger ${menuOpen ? "is-open" : ""}`}
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -215,6 +211,18 @@ const LoginPage = () => {
           </div>
         </div>
       </main>
+      <footer className="login-footer">
+        <div className="footer-top">
+          <span className="footer-logo">123 Fakturera</span>
+          <nav className="foter-nav">
+            <a href="#">{t("footer_home")}</a>
+            <a href="#">{t("footer_order")}</a>
+            <a href="#">{t("footer_contact_us")}</a>
+          </nav>
+        </div>
+        <div className="footer-divider"></div>
+        <div className="footer-bottom">{t("footer_copyright")}</div>
+      </footer>
     </div>
   );
 };
