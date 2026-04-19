@@ -116,59 +116,6 @@ body {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-.mobile-nav {
-  position: absolute;
-  top: 72px;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.88);
-  z-index: 200;
-  transform: translateY(-110%);
-  transition: transform 0.25s ease;
-  pointer-events: none;
-  display: block;
-}
-
-.mobile-nav.is-open {
-  transform: translateY(0);
-  pointer-events: all;
-}
-.mobile-nav__item {
-  display: block;
-  padding: 15px 24px;
-  color: #fff;
-  font-size: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  text-decoration: none;
-  transition: background 0.2s;
-}
-
-.mobile-nav__item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  text-decoration: none;
-}
-
-.mobile-nav__lang {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 15px 24px;
-  color: #fff;
-  font-size: 15px;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-}
-
-.mobile-nav__lang img {
-  width: 22px;
-  height: 15px;
-  object-fit: cover;
-  border-radius: 2px;
-}
-/* main center */
 .login-main {
   flex: 1;
   display: flex;
@@ -180,6 +127,68 @@ body {
 .login-header__right {
   display: flex;
   align-items: center;
+  gap: 12px;
+  /* important for the dropdown */
+  position: relative;
+}
+
+.mobile-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.mobile-lang-btn img {
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.mobile-dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 180px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+
+  /* intro animation */
+
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-dropdown.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.mobile-dropdown a {
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.mobile-dropdown a:hover {
+  background: #f5f5f5;
+  color: #e53224;
 }
 
 .login-card {
@@ -382,6 +391,26 @@ body {
 }
 
 /* RESPONSIVE */
+
+@media (max-width: 1023px) {
+  .login-header__nav {
+    display: none;
+  }
+}
+@media (min-width: 1024px) {
+  .hamburger,
+  .mobile-lang-btn,
+  .mobile-dropdown {
+    display: none;
+  }
+  /* show nav of desktop */
+  .login-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
 /* tablet */
 @media (min-width: 768px) {
   .login-card {
@@ -389,19 +418,14 @@ body {
     padding: 48px 56px 40px;
   }
 }
-/* DESKTOP */
 
-@media (min-width: 1024px) {
-  .hamburger {
-    display: none;
+@media (max-width: 400px) {
+  .login-card {
+    padding: 32px 24px 28px;
   }
-  .login-header__nav {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .mobile-nav {
-    display: none;
+
+  .login-card__title {
+    font-size: 30px;
   }
 }
 
@@ -409,6 +433,7 @@ body {
   .login-card {
     padding: 24px 40px 24px;
     max-width: 420px;
+    margin-bottom: 20px;
   }
 
   .login-card__title {
@@ -433,15 +458,5 @@ body {
 
   .login-links {
     margin-top: 14px;
-  }
-}
-
-@media (max-width: 400px) {
-  .login-card {
-    padding: 32px 24px 28px;
-  }
-
-  .login-card__title {
-    font-size: 30px;
   }
 }

@@ -82,44 +82,40 @@ const LoginPage = () => {
 
         {/* right group */}
         <div className="login-header__right">
-          {/* lang selector */}
           <button
-            className={`hamburger ${menuOpen ? "is-open" : ""}`}
+            className="mobile-lang-btn"
+            onClick={() => switchLang(otherLang)}
+          >
+            {otherLabel}
+            <img src={otherFlag} alt={otherLabel} />
+          </button>
+          {/* hamburguer button */}
+
+          <button
+            className={`hamburguer ${menuOpen ? "is-open" : ""}`}
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
-            aria-expanded={menuOpen}
           >
-            <span className="hamburger__line"></span>
-            <span className="hamburger__line"></span>
-            <span className="hamburger__line"></span>
+            {/* the lines of the button */}
+            <span className="hamburguer__line"></span>
+            <span className="hamburguer__line"></span>
+            <span className="hamburguer__line"></span>
           </button>
+
+          <nav className={`mobile-dropdown ${menuOpen ? "is-open" : ""}`}>
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.key}
+                href={link.href}
+                className="mobile-nav__item"
+                onClick={() => setMenuOpen(false)}
+              >
+                {t(link.key)}
+              </a>
+            ))}
+          </nav>
         </div>
       </header>
-
-      {/* mobile phone menu */}
-
-      <nav className={`mobile-nav ${menuOpen ? "is-open" : ""}`}>
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.key}
-            href={link.href}
-            className="mobile-nav__item"
-            onClick={() => setMenuOpen(false)}
-          >
-            {t(link.key)}
-          </a>
-        ))}
-        <button
-          className="mobile-nav__lang"
-          onClick={() => {
-            switchLang(otherLang);
-            setMenuOpen(false);
-          }}
-        >
-          <img src={otherFlag} alt={otherLabel} />
-          {otherLabel}
-        </button>
-      </nav>
 
       {/* card */}
       <main className="login-main">
