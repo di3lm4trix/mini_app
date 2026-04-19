@@ -1,0 +1,71 @@
+.login-page {
+  min-height: 100vh;
+  background-image: url("https://storage.123fakturera.se/public/wallpapers/sverige43.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.login-header {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32 px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.login-header__logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
+/* nav of desktop */
+.login-header__nav {
+  display: none;
+}
+
+.nav-link {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+}
+
+/* lang butto of nav */
+.nav-lang {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: backgrounf 0.2s;
+}
+
+.nav-lang:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-lang img {
+  width: 22px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 2px;
+}

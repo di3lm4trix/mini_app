@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { href, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import useTranslations from "../hooks/useTranslations";
 import { apiClient } from "../api/client";
@@ -21,11 +21,16 @@ const LoginPage = () => {
   const { login } = useContext(AppContext);
   const { t, lang, switchLang } = useTranslations();
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const otherLang = lang === "en" ? "sv" : "en";
   const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
   const otherLabel = lang === "en" ? "Svenska" : "English";
-
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="login-page">
@@ -78,12 +83,31 @@ const LoginPage = () => {
             key={link.key}
             href={link.href}
             className="mobile-nav__item"
-            onclick={() => setMenuOpen(false)}
+            onClick={() => setMenuOpen(false)}
           >
             {t(link.key)}
           </a>
         ))}
+        <button
+          className="mobile-nav__lang"
+          onClick={() => {
+            switchLang(otherLang);
+            setMenuOpen(false);
+          }}
+        >
+          <img src={otherFlag} alt={otherLabel} />
+          {otherLabel}
+        </button>
       </nav>
+
+      {/* card */}
+      <main className="login-main">
+        <div className="login-card">
+          <h1 className="login-card__title">{t("login_title")}</h1>
+          <form className="login-form"></form>
+          <div className="login-card__logo-wrap"></div>
+        </div>
+      </main>
     </div>
   );
 };
