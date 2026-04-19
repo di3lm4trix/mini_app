@@ -92,14 +92,14 @@ const LoginPage = () => {
           {/* hamburguer button */}
 
           <button
-            className={`hamburguer ${menuOpen ? "is-open" : ""}`}
+            className={`hamburger ${menuOpen ? "is-open" : ""}`}
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
           >
             {/* the lines of the button */}
-            <span className="hamburguer__line"></span>
-            <span className="hamburguer__line"></span>
-            <span className="hamburguer__line"></span>
+            <span className="hamburger__line"></span>
+            <span className="hamburger__line"></span>
+            <span className="hamburger__line"></span>
           </button>
 
           <nav className={`mobile-dropdown ${menuOpen ? "is-open" : ""}`}>
@@ -210,7 +210,7 @@ const LoginPage = () => {
       <footer className="login-footer">
         <div className="footer-top">
           <span className="footer-logo">123 Fakturera</span>
-          <nav className="foter-nav">
+          <nav className="footer-nav">
             <a href="#">{t("footer_home")}</a>
             <a href="#">{t("footer_order")}</a>
             <a href="#">{t("footer_contact_us")}</a>
