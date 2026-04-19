@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { href, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import useTranslations from "../hooks/useTranslations";
 import { apiClient } from "../api/client";
@@ -25,36 +25,65 @@ const LoginPage = () => {
   const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
   const otherLabel = lang === "en" ? "Svenska" : "English";
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="login-page">
       {/* header */}
       <header className="login-header">
         <img src={DIAMONT} alt="123 Fakturera" className="login-header__logo" />
+
+        {/* nav links only in desktop
+         */}
+        <nav className="login-header__nav">
+          {NAV_LINKS.map((link) => (
+            <a key={link.key} href={link.href} className="nav-link">
+              {/* get the text translation */}
+              {t(link.key)}
+            </a>
+          ))}
+        </nav>
+
+        <div className="login-header__right">
+          {/* lang selector */}
+          <div className="lang_switcher">
+            <button
+              className="lang-button"
+              onClick={() => switchLang(otherLang)}
+              aria-label={`Switch to ${otherLabel}`}
+            >
+              <img src={otherFlag} alt={otherLabel} />
+              {otherLabel}
+            </button>
+          </div>
+
+          <button
+            className={`hamburger ${menuOpen ? "is-open" : ""}`}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            <span className="hamburger__line"></span>
+            <span className="hamburger__line"></span>
+            <span className="hamburger__line"></span>
+          </button>
+        </div>
       </header>
-      {/* nav links only in desktop
-       */}
-      <nav className="login-header__nav">
+
+      {/* mobile phone menu */}
+
+      <nav className={`mobile-nav ${menuOpen ? "is-open" : ""}`}>
         {NAV_LINKS.map((link) => (
-          <a key={link.key} href={link.href} className="nav-link">
-            {/* get the text translation */}
+          <a
+            key={link.key}
+            href={link.href}
+            className="mobile-nav__item"
+            onclick={() => setMenuOpen(false)}
+          >
             {t(link.key)}
           </a>
         ))}
       </nav>
-
-      <div className="login-header__right">
-        {/* lang selector */}
-        <div className="lang_switcher">
-          <button
-            className="lang-button"
-            onClick={() => switchLang(otherLang)}
-            aria-label={`Switch to ${otherLabel}`}
-          >
-            <img src={otherFlag} alt={otherLabel} />
-            {otherLabel}
-          </button>
-        </div>
-      </div>
     </div>
   );
 };
