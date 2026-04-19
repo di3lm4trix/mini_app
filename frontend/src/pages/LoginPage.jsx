@@ -36,7 +36,7 @@ const LoginPage = () => {
     e.preventDefault();
     setError("");
     // verurfy the existense of user and password
-    if (!username.trim() || password.trim()) {
+    if (!username.trim() || !password.trim()) {
       setError(t("missing_fields"));
       return;
     }
