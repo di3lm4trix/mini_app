@@ -123,12 +123,6 @@ const LoginPage = () => {
           <h1 className="login-card__title">{t("login_title")}</h1>
 
           <form className="login-form" onSubmit={handleSubmit} noValidate>
-            {error && (
-              <div className="login-error" role="alert">
-                {error}
-              </div>
-            )}
-
             {/* username */}
 
             <div className="form-field">
@@ -149,6 +143,11 @@ const LoginPage = () => {
             </div>
 
             {/* password */}
+            {error && (
+              <div className="login-error" role="alert">
+                {error}
+              </div>
+            )}
             <div className="form-field">
               <label htmlFor="password">
                 {t("label_password_description")}

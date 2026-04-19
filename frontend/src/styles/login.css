@@ -7,7 +7,7 @@ body {
   min-height: 100vh;
   background-image: url("https://storage.123fakturera.se/public/wallpapers/sverige43.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
   background-attachment: fixed;
   display: flex;
@@ -94,7 +94,7 @@ body {
   gap: 5px;
   width: 36px;
   height: 36px;
-  padding: 0px;
+  padding: 0;
   background: none;
   border: none;
   cursor: pointer;
@@ -126,7 +126,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: 24px 16px 80px;
 }
 
 .login-header__right {
@@ -363,13 +363,11 @@ body {
 .footer-logo {
   font-weight: 600;
   font-size: 28px;
-  margin-left: 10vh;
 }
 
 .footer-nav {
   display: flex;
   gap: 20px;
-  margin-right: 10vh;
   padding: 10px 0;
 }
 
@@ -402,6 +400,25 @@ body {
 /* RESPONSIVE */
 
 @media (max-width: 1023px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0 16px;
+  }
+  .footer-logo {
+    margin-left: 0;
+    font-size: 24px;
+  }
+  .footer-nav {
+    margin-right: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .footer-nav a {
+    font-size: 15px;
+  }
   .login-header__nav {
     display: none;
   }
@@ -415,6 +432,12 @@ body {
   .mobile-lang-btn,
   .mobile-dropdown {
     display: none;
+  }
+  .footer-logo {
+    margin-left: 10vh;
+  }
+  .footer-nav {
+    margin-right: 10vh;
   }
   /* show nav of desktop */
   .login-header__nav {
