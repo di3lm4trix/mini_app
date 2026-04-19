@@ -69,3 +69,18 @@
   object-fit: cover;
   border-radius: 2px;
 }
+
+/* hamburguer menu */
+
+.hamburguer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
