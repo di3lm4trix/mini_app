@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const getHeaders = () => {
   const token = localStorage.getItem("token");
@@ -27,23 +27,29 @@ const handleResponse = async (response) => {
 };
 
 export const apiClient = {
-  get: (endpoint) =>
-    fetch(`${BASE_URL}${endpoint}`, {
+  get: (endpoint) => {
+    const url = `${BASE_URL.replace(/\/$/, "")}/${endpoint.replace(/^\//, "")}`;
+    return fetch(url, {
       method: "GET",
       headers: getHeaders(),
-    }).then(handleResponse),
+    }).then(handleResponse);
+  },
 
-  post: (endpoint, body) =>
-    fetch(`${BASE_URL}${endpoint}`, {
+  post: (endpoint, body) => {
+    const url = `${BASE_URL.replace(/\/$/, "")}/${endpoint.replace(/^\//, "")}`;
+    return fetch(url, {
       method: "POST",
       headers: getHeaders(),
       body: JSON.stringify(body),
-    }).then(handleResponse),
+    }).then(handleResponse);
+  },
 
-  put: (endpoint, body) =>
-    fetch(`${BASE_URL}${endpoint}`, {
-      method: "PUT",
+  put: (endpoint, body) => {
+    const url = `${BASE_URL.replace(/\/$/, "")}/${endpoint.replace(/^\//, "")}`;
+    return fetch(url, {
+      method: "POST",
       headers: getHeaders(),
       body: JSON.stringify(body),
-    }).then(handleResponse),
+    }).then(handleResponse);
+  },
 };
