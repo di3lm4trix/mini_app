@@ -265,10 +265,8 @@
   .pl-header__user-info {
     display: none;
   }
-  .col-inprice,
-  .col-instock,
   .col-desc,
-  .col-unit {
+  .col-inprice {
     display: none;
   }
   .pl-table td {
@@ -292,7 +290,76 @@
     width: 100%;
   }
 }
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .pl-action-btns button {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
 
+  .pl-btn__icon {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .pl-action-btns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .col-article,
+  .col-inprice,
+  .col-unit,
+  .col-instock,
+  .col-desc {
+    display: none !important;
+  }
+  .pl-content {
+    padding: 10px;
+    overflow-x: hidden;
+  }
+  .pl-table {
+    width: 100%;
+    display: table;
+  }
+  .td-product {
+    width: 70%;
+  }
+  .td-price {
+    width: 20%;
+    text-align: right;
+  }
+  .pl-action-btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  .pl-table input {
+    height: 32px;
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+
+  .pl-action-btns button p {
+    display: none;
+  }
+
+  .pl-action-btns button {
+    width: 128px;
+  }
+}
 /* phone portrait */
 
 @media (max-width: 480px) {
