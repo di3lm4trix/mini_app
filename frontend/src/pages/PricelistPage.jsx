@@ -143,7 +143,7 @@ const PricelistPage = () => {
       <div className="pl-body">
         {/* sidebar only desktop */}
         <aside className="pl-sidebar">
-          <div className="pl-sidebar__title">Menu</div>
+          <div className="pl-sidebar__title">{t("sidebar_title")}</div>
           {SIDEBAR_ITEMS.map((item) => (
             <a
               key={item.key}
@@ -210,39 +210,19 @@ const PricelistPage = () => {
             </div>
 
             <div className="pl-action-btns">
-              <button
-                className="pl-btn pl-btn--add"
-                title={t("btn_new_product")}
-              >
-                <span className="pl-btn__icon">+</span>
+              <button className="pl-btn" title={t("btn_new_product")}>
+                <p>{t("new_product_button")}</p>
+                <div className="pl-btn__icon pl-btn__icon--add">+</div>
               </button>
-              {/* print */}
               <button className="pl-btn" title={t("btn_print")}>
-                <span className="pl-btn__printer">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <polyline points="6 9 6 2 18 2 18 9" />
-                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                    <rect x="6" y="14" width="12" height="8" />
-                  </svg>
-                </span>
+                <p>{t("print_button")}</p>
+
+                <div className="pl-btn__icon pl-btn__icon--print">🖨️</div>
               </button>
               <button className="pl-btn" title={t("btn_advanced")}>
-                <span className="pl-btn__toggle">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="17" cy="12" r="3" />
-                    <path d="M21 12h-1M7 12H3M17 5V3M17 21v-2M11.22 6.22l-1.42-1.42M18.36 18.36l-1.42-1.42" />
-                  </svg>
-                </span>
+                <p>{t("btn_advanced")}</p>
+
+                <div className="pl-btn__icon pl-btn__icon--toggle">🔼</div>
               </button>
             </div>
           </div>

@@ -6,6 +6,7 @@ const ProductRow = ({ product, translations }) => {
   const { t, translationsLoading } = useTranslations();
 
   const [fields, setFields] = useState({
+    name_key: product.name_key,
     buy_price: product.buy_price,
     sell_price: product.sell_price,
   });
@@ -22,18 +23,20 @@ const ProductRow = ({ product, translations }) => {
     setErrorMsg("");
     try {
       await apiClient.put(`/api/products/${product.id}`, {
+        name_key: fields.name_key,
         buy_price: Number(fields.buy_price) || 0,
         sell_price: Number(fields.sell_price) || 0,
       });
       setStatus("saved");
     } catch (error) {
       setStatus("error");
+      console.log(error);
       setErrorMsg(error.response?.data?.message || error.message);
     }
   };
 
-  const isDirty =
-    Number(fields.buy_price) !== Number(product.buy_price) ||
+  const isDirty = fields.name_key !== product.name_key;
+  Number(fields.buy_price) !== Number(product.buy_price) ||
     Number(fields.sell_price) !== Number(product.sell_price);
   useEffect(() => {
     if (status !== "saved") return;
@@ -62,10 +65,11 @@ const ProductRow = ({ product, translations }) => {
       <td className="td-product">
         <input
           type="text"
-          value={t(translations?.[product.name_key] ?? product.name_key)}
-          onChange={handleChange("name")}
-          readOnly
-          style={{ background: "#f9f9f9", cursor: "default" }}
+          // value={t(translations?.[product.name_key] ?? product.name_key)}
+          value={fields.name_key}
+          onChange={handleChange("name_key")}
+          style={{ background: "#f9f9f9", cursor: "text" }}
+          className="pl-input-editable"
         />
       </td>
 

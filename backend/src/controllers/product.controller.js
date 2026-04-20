@@ -17,12 +17,21 @@ const getAllProducts = async (request, response) => {
 };
 
 const updateProduct = async (request, response) => {
-  const lang = request.headers["lang"] || eng;
+  const lang = request.headers["lang"] || "en";
   const { id } = request.params;
-  const { buy_price, sell_price } = request.body;
+  const { name_key, buy_price, sell_price } = request.body;
 
-  if (buy_price === underfined || sell_price === underfined) {
+  if (buy_price === undefined || sell_price === undefined) {
     const msg = await translate("missing_price_fields", lang);
+    return response.status(400).json({ error: msg });
+  }
+
+  if (
+    name_key == undefined ||
+    sell_price === undefined ||
+    buy_price === undefined
+  ) {
+    const msg = await translate("missing_fields", lang);
     return response.status(400).json({ error: msg });
   }
 
@@ -40,11 +49,11 @@ const updateProduct = async (request, response) => {
     const result = await pool.query(
       `
       UPDATE products
-      SET buy_price = $1, sell_price = $2
-      WHERE id = $3
+      SET name_key=$1, buy_price = $2, sell_price = $3
+      WHERE id = $4
       RETURNING id, name_key, buy_price, sell_price
       `,
-      [buy_price, sell_price, id],
+      [name_key, buy_price, sell_price, id],
     );
 
     if (result.rows.length === 0) {
