@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import {
+  href,
   UNSAFE_createClientRoutesWithHMRRevalidationOptOut,
   useNavigate,
 } from "react-router-dom";
@@ -8,6 +9,17 @@ import useTranslations from "../hooks/useTranslations";
 
 const FLAG_EN = "https://storage.123fakturere.no/public/flags/GB.png";
 const FLAG_SV = "https://storage.123fakturere.no/public/flags/SE.png";
+
+const SIDEBAR_ITEMS = [
+  { key: "nav_invoices", icon: "🗒", href: "#" },
+  { key: "nav_customers", icon: "👤", href: "#" },
+  { key: "nav_my_business", icon: "⚙", href: "#" },
+  { key: "nav_invoice_journal", icon: "📋", href: "#" },
+  { key: "pricelist_title", icon: "🏷", href: "#", active: true },
+  { key: "nav_multiple_invoice", icon: "📄", href: "#" },
+  { key: "nav_unpaid", icon: "❌", href: "#" },
+  { key: "nav_offer", icon: "📦", href: "#" },
+];
 
 const PricelistPage = () => {
   const navigate = useNavigate();
@@ -55,9 +67,48 @@ const PricelistPage = () => {
                 />
               </svg>
             </div>
+            <div className="pl-header__user-info">
+              <div className="pl-header__username">
+                {user?.username ?? "Admin"}
+              </div>
+              <div className="pl-header__company">Storfjord AS</div>
+            </div>
           </div>
+          <button
+            className={`pl-hamburger ${menuOpen ? "is-open" : ""}`}
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            <span className="pl-hamburger__line"></span>
+            <span className="pl-hamburger__line"></span>
+            <span className="pl-hamburger__line"></span>
+          </button>
         </div>
+        <button
+          className="pl-header__lang"
+          onClick={() => switchLang(otherLang)}
+          aria-label={`Switch to ${otherLabel}`}
+        >
+          {otherLabel}
+          <img src={otherFlag} alt={otherLabel} />
+        </button>
       </header>
+      {/* mobile menu */}
+      <nav className={`pl-mobile-nav ${menuOpen ? "is-open" : ""}`}>
+        {SIDEBAR_ITEMS.map((item) => (
+          <a
+            key={item.key}
+            href={item.href}
+            className="pl-mobile-nav__item"
+            onClick={() => setMenuOpen(false)}
+          >
+            <span>{item.icon}</span>
+            {t(item.key)}
+          </a>
+        ))}
+
+        <button className="pl-mobile-nav__item"></button>
+      </nav>
     </div>
   );
 };
