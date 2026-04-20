@@ -71,31 +71,28 @@ const PricelistPage = () => {
 
   if (translationsLoading) {
     return (
-      <p style={{ padding: 20, color: "#888" }}>Loading translations...</p>
+      <p style={{ padding: 20, color: "#888", display: "flex" }}>
+        Loading translations...
+      </p>
     );
   }
   return (
     <div className="pricelist-page">
-      <header className="pe-header">
-        <div className="pl-header__left">
-          <div className="pl-header__user">
-            <div
-              className="pl-header__avatar"
-              style={{
-                background: "#90caf9",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 22,
-              }}
-            >
+      <header className="pl-header">
+        <div className="pl-header__group-left">
+          <button className="pl-hamburger-mobile">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div className="pl-header__avatar-container">
+            <div className="pl-header__avatar">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6"
               >
                 <path
                   strokeLinecap="round"
@@ -111,24 +108,16 @@ const PricelistPage = () => {
               <div className="pl-header__company">Storfjord AS</div>
             </div>
           </div>
+        </div>
+        <div className="pl-header__right-group">
           <button
-            className={`pl-hamburger ${menuOpen ? "is-open" : ""}`}
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
+            className="pl-header__lang"
+            onClick={() => switchLang(otherLang)}
           >
-            <span className="pl-hamburger__line"></span>
-            <span className="pl-hamburger__line"></span>
-            <span className="pl-hamburger__line"></span>
+            <span className="lang-text">{otherLabel}</span>
+            <img src={otherFlag} alt={otherLabel} />
           </button>
         </div>
-        <button
-          className="pl-header__lang"
-          onClick={() => switchLang(otherLang)}
-          aria-label={`Switch to ${otherLabel}`}
-        >
-          {otherLabel}
-          <img src={otherFlag} alt={otherLabel} />
-        </button>
       </header>
       {/* mobile menu */}
       <nav className={`pl-mobile-nav ${menuOpen ? "is-open" : ""}`}>
