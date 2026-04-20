@@ -47,7 +47,7 @@ export const apiClient = {
   put: (endpoint, body) => {
     const url = `${BASE_URL.replace(/\/$/, "")}/${endpoint.replace(/^\//, "")}`;
     return fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: getHeaders(),
       body: JSON.stringify(body),
     }).then(handleResponse);
