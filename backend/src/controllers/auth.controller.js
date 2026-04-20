@@ -50,6 +50,42 @@ const login = async (request, response) => {
   }
 };
 
+const register = async (request, response) => {
+  const { username, password } = request.body;
+
+  if (!username || !password) {
+    return response.status(400).json({ error: "Missing fields" });
+  }
+
+  try {
+    const existingUser = await pool.query(
+      "select id from users where username = $1",
+      [username],
+    );
+    if (existingUser.rows.length > 0) {
+      return response.status(400).json({ error: "User already exists" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const result = await pool.query(
+      `INSERT INTO users (username, password_hash)
+        VALUES ($1, $2)
+        RETURNING id, username
+        `,
+      [username, hashedPassword],
+    );
+    const user = result.rows[0];
+
+    return response.status(201).json({
+      message: "User created",
+      user,
+    });
+  } catch (error) {
+    console.error("> REGISTER ERROR:", error);
+    return response.status(500).json({ error: "Server error" });
+  }
+};
+
 module.exports = {
   login,
+  register,
 };

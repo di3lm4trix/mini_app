@@ -1,8 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import useTranslations from "../hooks/useTranslations";
 import { apiClient } from "../api/client";
+import ProductRow from "../components/ProductRow";
+import "../styles/pricelist.css";
 
 const FLAG_EN = "https://storage.123fakturere.no/public/flags/GB.png";
 const FLAG_SV = "https://storage.123fakturere.no/public/flags/SE.png";
@@ -30,6 +32,7 @@ const PricelistPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchArticle, setSearchArticle] = useState("");
   const [searchProduct, setSearchProduct] = useState("");
+  const { translationsLoading } = useTranslations();
 
   const otherLang = lang === "en" ? "sv" : "en";
   const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
@@ -50,19 +53,27 @@ const PricelistPage = () => {
     };
     fetchProducts();
   }, []);
-  const filtered = products.filter((p) => {
-    const name = (translations[p.name_key] ?? p.name_key).toLowerCase();
-    const artNo = String(p.id).padStart(10, "0");
-    return (
-      name.includes(searchProduct.toLowerCase()) &&
-      artNo.includes(searchArticle)
-    );
-  });
+  const filtered = useMemo(() => {
+    return products.filter((p) => {
+      const name = translations?.[p.name_key] ?? p.name_key ?? "";
+      const artNo = String(p.id).padStart(10, "0");
+      return (
+        name.toLowerCase().includes(searchProduct.toLowerCase()) &&
+        artNo.includes(searchArticle)
+      );
+    });
+  }, [products, translations, searchProduct, searchArticle]);
   // functions
   const handleLogout = () => {
     logout();
     navigate("/login", { replace: true });
   };
+
+  if (translationsLoading) {
+    return (
+      <p style={{ padding: 20, color: "#888" }}>Loading translations...</p>
+    );
+  }
   return (
     <div className="pricelist-page">
       <header className="pe-header">
@@ -82,13 +93,13 @@ const PricelistPage = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="size-6"
+                className="size-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                 />
               </svg>
@@ -164,7 +175,7 @@ const PricelistPage = () => {
 
         <main className="pl-content">
           <div className="pl-toolbar">
-            <div className="pl-seacrh-group">
+            <div className="pl-search-group">
               {/* search article */}
               <div className="pl-search-wrap">
                 <input

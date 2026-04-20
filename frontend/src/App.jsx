@@ -14,16 +14,14 @@ const App = () => {
 
       {/* protected */}
       {/* descomentar luego */}
-      {/* <Route
+      <Route
         path="/pricelist"
         element={
           <ProtectedRoute>
             <PricelistPage />
           </ProtectedRoute>
         }
-      /> */}
-
-      <Route path="/pricelist" element={<PricelistPage />} />
+      />
 
       {/* another unkown route */}
       <Route path="*" element={<Navigate to="/login" replace />} />

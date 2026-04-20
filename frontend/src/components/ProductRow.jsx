@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiClient } from "../api/client";
 import useTranslations from "../hooks/useTranslations";
 
 const ProductRow = ({ product, translations }) => {
-  const { t } = useTranslations;
+  const { t, translationsLoading } = useTranslations();
 
   const [fields, setFields] = useState({
-    name: translations[product.name_key] ?? product.name_key,
     buy_price: product.buy_price,
     sell_price: product.sell_price,
   });
-  // idle, saving, saved, error
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -23,23 +21,25 @@ const ProductRow = ({ product, translations }) => {
     setStatus("saving");
     setErrorMsg("");
     try {
-      await apiClient.put(`/api/products.${product.id}`, {
-        buy_price: parseFloat(fields.buy_price),
-        sell_price: parseFloat(fields.sell_price),
+      await apiClient.put(`/api/products/${product.id}`, {
+        buy_price: Number(fields.buy_price) || 0,
+        sell_price: Number(fields.sell_price) || 0,
       });
       setStatus("saved");
-
-      // return to idle afther 2 s
-      setTimeout(() => setStatus("idle"), 2000);
     } catch (error) {
       setStatus("error");
-      setErrorMsg(error.msg);
+      setErrorMsg(error.response?.data?.message || error.message);
     }
   };
 
   const isDirty =
-    String(fields.buy_price) !== String(product.buy_price) ||
-    String(fields.sell_price) !== String(product.sell_price);
+    Number(fields.buy_price) !== Number(product.buy_price) ||
+    Number(fields.sell_price) !== Number(product.sell_price);
+  useEffect(() => {
+    if (status !== "saved") return;
+    const id = setTimeout(() => setStatus("idle"), 2000);
+    return () => clearTimeout(id);
+  }, [status]);
 
   return (
     <tr
@@ -62,7 +62,7 @@ const ProductRow = ({ product, translations }) => {
       <td className="td-product">
         <input
           type="text"
-          value={fields.name}
+          value={t(translations?.[product.name_key] ?? product.name_key)}
           onChange={handleChange("name")}
           readOnly
           style={{ background: "#f9f9f9", cursor: "default" }}
