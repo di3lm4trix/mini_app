@@ -28,9 +28,13 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const otherLang = lang === "en" ? "sv" : "en";
   const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
+  const actualFlag = lang === "en" ? FLAG_EN : FLAG_SV;
+  const actualLang = lang === "en" ? "Englis" : "Svenska";
+
   const otherLabel = lang === "en" ? "Svenska" : "English";
 
   const handleSubmit = async (e) => {
@@ -62,59 +66,82 @@ const LoginPage = () => {
     <div className="login-page">
       {/* header */}
       <header className="login-header">
-        <img src={DIAMONT} alt="123 Fakturera" className="login-header__logo" />
+        <section className="navigation-section">
+          <img
+            src={DIAMONT}
+            alt="123 Fakturera"
+            className="login-header__logo"
+          />
 
-        {/* nav links only in desktop
-         */}
-        <nav className="login-header__nav">
-          {NAV_LINKS.map((link) => (
-            <a key={link.key} href={link.href} className="nav-link">
-              {/* get the text translation */}
-              {t(link.key)}
-            </a>
-          ))}
-
-          <button className="nav-lang" onClick={() => switchLang(otherLang)}>
-            {otherLabel}
-            <img src={otherFlag} alt={otherLabel} />
-          </button>
-        </nav>
-
-        {/* right group */}
-        <div className="login-header__right">
-          <button
-            className="mobile-lang-btn"
-            onClick={() => switchLang(otherLang)}
-          >
-            {otherLabel}
-            <img src={otherFlag} alt={otherLabel} />
-          </button>
-          {/* hamburguer button */}
-
-          <button
-            className={`hamburger ${menuOpen ? "is-open" : ""}`}
-            onClick={() => setMenuOpen((prev) => !prev)}
-            aria-label="Toggle menu"
-          >
-            {/* the lines of the button */}
-            <span className="hamburger__line"></span>
-            <span className="hamburger__line"></span>
-            <span className="hamburger__line"></span>
-          </button>
-
-          <nav className={`mobile-dropdown ${menuOpen ? "is-open" : ""}`}>
+          {/* nav links only in desktop
+           */}
+          <nav className="login-header__nav">
             {NAV_LINKS.map((link) => (
-              <a
-                key={link.key}
-                href={link.href}
-                className="mobile-nav__item"
-                onClick={() => setMenuOpen(false)}
-              >
+              <a key={link.key} href={link.href} className="nav-link">
+                {/* get the text translation */}
                 {t(link.key)}
               </a>
             ))}
+
+            <button className="nav-lang" onClick={() => switchLang(otherLang)}>
+              {otherLabel}
+              <img src={otherFlag} alt={otherLabel} />
+            </button>
           </nav>
-        </div>
+
+          {/* right group */}
+          <div className="header-mobile">
+            <section className="header-mobile-bottom">
+              <section className="header-mobile-bottom__left-controls">
+                <button
+                  className={`hamburger ${menuOpen ? "is-open" : ""}`}
+                  onClick={() => setMenuOpen((prev) => !prev)}
+                  aria-label="Toggle menu"
+                >
+                  {/* the lines of the button */}
+                  <span className="hamburger__line"></span>
+                  <span className="hamburger__line"></span>
+                  <span className="hamburger__line"></span>
+                </button>
+
+                <nav
+                  className={`mobile-dropdown-nav ${menuOpen ? "is-open" : ""}`}
+                >
+                  {NAV_LINKS.map((link) => (
+                    <a
+                      key={link.key}
+                      href={link.href}
+                      className="mobile-nav__item"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      {t(link.key)}
+                    </a>
+                  ))}
+                </nav>
+              </section>
+              <section className="header-mobile-bottom__right-controls">
+                <button
+                  className="mobile-lang-btn"
+                  onClick={() => setLangMenuOpen((prev) => !prev)}
+                >
+                  {actualLang}
+                  <img src={actualFlag} alt={lang} />
+                </button>
+                {/* hamburguer button */}
+                <nav
+                  className={`mobile-dropdown-lang ${langMenuOpen ? "is-open" : ""}`}
+                >
+                  <a onClick={() => switchLang(lang)}>
+                    <img src={actualFlag} alt="" />
+                  </a>
+                  <a onClick={() => switchLang(otherLang)}>
+                    <img src={otherFlag} alt="" />
+                  </a>
+                </nav>
+              </section>
+            </section>
+          </div>
+        </section>
       </header>
 
       {/* card */}
@@ -132,7 +159,7 @@ const LoginPage = () => {
               <input
                 id="username"
                 type="text"
-                placeholder={t("label_username")}
+                placeholder={t("label_email_adress_login")}
                 autoComplete="username"
                 value={username}
                 onChange={(e) => {
