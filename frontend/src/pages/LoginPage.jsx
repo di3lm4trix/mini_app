@@ -4,6 +4,7 @@ import { AppContext } from "../context/AppContext";
 import useTranslations from "../hooks/useTranslations";
 import { apiClient } from "../api/client";
 import "../styles/login.css";
+import { useEffect, useRef } from "react";
 
 const FLAG_EN = "https://storage.123fakturere.no/public/flags/GB.png";
 const FLAG_SV = "https://storage.123fakturere.no/public/flags/SE.png";
@@ -34,9 +35,27 @@ const LoginPage = () => {
   const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
   const actualFlag = lang === "en" ? FLAG_EN : FLAG_SV;
   const actualLang = lang === "en" ? "English" : "Svenska";
-
   const otherLabel = lang === "en" ? "Svenska" : "English";
 
+  const navRef = useRef(null);
+  const langRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickoutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickoutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickoutside);
+    };
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -92,10 +111,16 @@ const LoginPage = () => {
           {/* right group */}
           <div className="header-mobile">
             <section className="header-mobile-bottom">
-              <section className="header-mobile-bottom__left-controls">
+              <section
+                className="header-mobile-bottom__left-controls"
+                ref={navRef}
+              >
                 <button
                   className={`hamburger ${menuOpen ? "is-open" : ""}`}
-                  onClick={() => setMenuOpen((prev) => !prev)}
+                  onClick={() => {
+                    setMenuOpen((prev) => !prev);
+                    setLangMenuOpen(false);
+                  }}
                   aria-label="Toggle menu"
                 >
                   {/* the lines of the button */}
@@ -119,10 +144,16 @@ const LoginPage = () => {
                   ))}
                 </nav>
               </section>
-              <section className="header-mobile-bottom__right-controls">
+              <section
+                className="header-mobile-bottom__right-controls"
+                ref={langRef}
+              >
                 <button
                   className="mobile-lang-btn"
-                  onClick={() => setLangMenuOpen((prev) => !prev)}
+                  onClick={() => {
+                    setLangMenuOpen((prev) => !prev);
+                    setMenuOpen(false);
+                  }}
                 >
                   {actualLang}
                   <img src={actualFlag} alt={lang} />
@@ -131,13 +162,23 @@ const LoginPage = () => {
                 <nav
                   className={`mobile-dropdown-lang ${langMenuOpen ? "is-open" : ""}`}
                 >
-                  <a onClick={() => switchLang(lang)}>
-                    {actualLang}
-                    <img src={actualFlag} alt="" />
+                  <a
+                    onClick={() => {
+                      switchLang(lang);
+                      setLangMenuOpen(false);
+                    }}
+                  >
+                    English
+                    <img src={FLAG_EN} alt="" />
                   </a>
-                  <a onClick={() => switchLang(otherLang)}>
-                    {otherLabel}
-                    <img src={otherFlag} alt="" />
+                  <a
+                    onClick={() => {
+                      switchLang(otherLang);
+                      setLangMenuOpen(false);
+                    }}
+                  >
+                    Svenska
+                    <img src={FLAG_SV} alt="" />
                   </a>
                 </nav>
               </section>
