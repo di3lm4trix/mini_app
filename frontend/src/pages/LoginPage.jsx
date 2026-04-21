@@ -33,7 +33,7 @@ const LoginPage = () => {
   const otherLang = lang === "en" ? "sv" : "en";
   const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
   const actualFlag = lang === "en" ? FLAG_EN : FLAG_SV;
-  const actualLang = lang === "en" ? "Englis" : "Svenska";
+  const actualLang = lang === "en" ? "English" : "Svenska";
 
   const otherLabel = lang === "en" ? "Svenska" : "English";
 
@@ -132,9 +132,11 @@ const LoginPage = () => {
                   className={`mobile-dropdown-lang ${langMenuOpen ? "is-open" : ""}`}
                 >
                   <a onClick={() => switchLang(lang)}>
+                    {actualLang}
                     <img src={actualFlag} alt="" />
                   </a>
                   <a onClick={() => switchLang(otherLang)}>
+                    {otherLabel}
                     <img src={otherFlag} alt="" />
                   </a>
                 </nav>
@@ -144,7 +146,7 @@ const LoginPage = () => {
         </section>
       </header>
 
-      {/* card */}
+      {/* card  CONTENT*/}
       <main className="login-main">
         <div className="login-card">
           <h1 className="login-card__title">{t("login_title")}</h1>
