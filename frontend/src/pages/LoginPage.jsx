@@ -21,7 +21,7 @@ const NAV_LINKS = [
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AppContext);
-  const { t, lang, switchLang } = useTranslations();
+  const { t, lang, switchLang, translationsLoading } = useTranslations();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -81,31 +81,68 @@ const LoginPage = () => {
     }
   };
 
+  if (translationsLoading) {
+    return <div className="loading_translations"></div>;
+  }
+
   return (
     <div className="login-page">
       {/* header */}
       <header className="login-header">
         <section className="navigation-section">
-          <img
-            src={DIAMONT}
-            alt="123 Fakturera"
-            className="login-header__logo"
-          />
-
           {/* nav links only in desktop
            */}
           <nav className="login-header__nav">
-            {NAV_LINKS.map((link) => (
-              <a key={link.key} href={link.href} className="nav-link">
-                {/* get the text translation */}
-                {t(link.key)}
-              </a>
-            ))}
+            <img
+              src={DIAMONT}
+              alt="123 Fakturera"
+              className="login-header__logo"
+            />
 
-            <button className="nav-lang" onClick={() => switchLang(otherLang)}>
-              {otherLabel}
-              <img src={otherFlag} alt={otherLabel} />
-            </button>
+            <div className="right_navbar">
+              <nav className="desktop-navbar">
+                {NAV_LINKS.map((link) => (
+                  <a key={link.key} href={link.href} className="nav-link">
+                    {/* get the text translation */}
+                    {t(link.key)}
+                  </a>
+                ))}
+              </nav>
+              {/* button occulted defect */}
+              <div className="lang-wrapper" ref={langRef}>
+                <button
+                  className="desktop-lang-btn"
+                  onClick={() => setLangMenuOpen((v) => !v)}
+                >
+                  {actualLang}
+                  <img src={actualFlag} alt={lang} />
+                </button>
+
+                {/* hamburguer button */}
+                <nav
+                  className={`desktop-lang-dropdown ${langMenuOpen ? "is-open" : ""}`}
+                >
+                  <a
+                    onClick={() => {
+                      switchLang("en");
+                      setLangMenuOpen(false);
+                    }}
+                  >
+                    <p>English</p>
+                    <img src={FLAG_EN} alt="" />
+                  </a>
+                  <a
+                    onClick={() => {
+                      switchLang("sv");
+                      setLangMenuOpen(false);
+                    }}
+                  >
+                    <p>Svenska</p>
+                    <img src={FLAG_SV} alt="" />
+                  </a>
+                </nav>
+              </div>
+            </div>
           </nav>
 
           {/* right group */}
@@ -152,7 +189,6 @@ const LoginPage = () => {
                   className="mobile-lang-btn"
                   onClick={() => {
                     setLangMenuOpen((prev) => !prev);
-                    setMenuOpen(false);
                   }}
                 >
                   {actualLang}
@@ -164,7 +200,7 @@ const LoginPage = () => {
                 >
                   <a
                     onClick={() => {
-                      switchLang(lang);
+                      switchLang("en");
                       setLangMenuOpen(false);
                     }}
                   >
@@ -173,7 +209,7 @@ const LoginPage = () => {
                   </a>
                   <a
                     onClick={() => {
-                      switchLang(otherLang);
+                      switchLang("sv");
                       setLangMenuOpen(false);
                     }}
                   >
