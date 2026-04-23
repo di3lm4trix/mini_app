@@ -129,25 +129,6 @@ const ProductRow = ({ product, translations }) => {
         />
       </td>
 
-      <td style={{ whiteSpace: "nowrap" }}>
-        {isDirty && (
-          <button
-            className="btn-save-row"
-            onClick={handleSave}
-            disabled={status === "saving"}
-          >
-            {status === "saving" ? "..." : t("btn_save")}
-          </button>
-        )}
-        {status === "saved" && (
-          <span style={{ color: "#4caf50", fontSize: 13 }}>✓</span>
-        )}
-        {status === "error" && (
-          <span style={{ color: "#e53224", fontSize: 12 }} title={errorMsg}>
-            ✗
-          </span>
-        )}
-      </td>
       {/* menu */}
       <td>
         <button className="btn-dots" title="Options">

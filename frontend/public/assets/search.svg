@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="42.504032mm"
+   height="41.998634mm"
+   viewBox="0 0 42.504032 41.998634"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="42.504032"
+       height="41.998634"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient1"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#0097ff;stop-opacity:1;"
+         offset="0"
+         id="stop1" />
+      <stop
+         style="stop-color:#50b889;stop-opacity:1;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1"
+       id="linearGradient2"
+       x1="64.589592"
+       y1="55.914902"
+       x2="105.74263"
+       y2="97.06794"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-64.248785,-55.763526)">
+    <path
+       id="path1"
+       style="fill:url(#linearGradient2);stroke-width:1.1"
+       d="M 82.23064,55.763521 A 17.981632,17.981632 0 0 0 64.248792,73.744853 17.981632,17.981632 0 0 0 82.23064,91.726701 17.981632,17.981632 0 0 0 92.975203,88.163611 c 0.07863,0.102085 0.165247,0.200386 0.258899,0.294039 l 8.428948,8.428943 c 1.16741,1.167416 3.04679,1.167416 4.21421,0 1.16742,-1.167417 1.16742,-3.047313 0,-4.21473 L 97.448315,84.24292 c -0.122114,-0.122115 -0.252019,-0.231578 -0.38809,-0.328145 A 17.981632,17.981632 0 0 0 100.21249,73.744853 17.981632,17.981632 0 0 0 82.23064,55.763521 Z m 0,4.343404 A 13.637754,13.637754 0 0 1 95.868567,73.744853 13.637754,13.637754 0 0 1 82.23064,87.38278 13.637754,13.637754 0 0 1 68.592712,73.744853 13.637754,13.637754 0 0 1 82.23064,60.106925 Z" />
+  </g>
+</svg>

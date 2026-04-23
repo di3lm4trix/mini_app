@@ -148,15 +148,7 @@ const PricelistPage = () => {
               />
 
               <span className="pl-search-wrap__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.35-4.35" />
-                </svg>
+                <img src="/assets/search.svg" alt="" />
               </span>
             </div>
             {/* search product */}
@@ -169,15 +161,7 @@ const PricelistPage = () => {
               />
 
               <span className="pl-search-wrap__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.35-4.35" />
-                </svg>
+                <img src="/assets/search.svg" alt="" />
               </span>
             </div>
           </div>
@@ -185,17 +169,26 @@ const PricelistPage = () => {
           <div className="pl-action-btns">
             <button className="pl-btn" title={t("btn_new_product")}>
               <p>{t("new_product_button")}</p>
-              <div className="pl-btn__icon pl-btn__icon--add">+</div>
+              <img
+                className="pl-btn__icon pl-btn__icon--add"
+                src="/assets/add.svg"
+              />
             </button>
             <button className="pl-btn" title={t("btn_print")}>
               <p>{t("print_button")}</p>
 
-              <div className="pl-btn__icon pl-btn__icon--print">🖨️</div>
+              <img
+                className="pl-btn__icon pl-btn__icon--print"
+                src="/assets/printer.svg"
+              />
             </button>
             <button className="pl-btn" title={t("btn_advanced")}>
               <p>{t("btn_advanced")}</p>
 
-              <div className="pl-btn__icon pl-btn__icon--toggle">🔼</div>
+              <img
+                className="pl-btn__icon pl-btn__icon--toggle"
+                src="/assets/advanced_mode.svg"
+              />
             </button>
           </div>
         </div>
@@ -214,20 +207,13 @@ const PricelistPage = () => {
               <thead>
                 <tr>
                   <th style={{ width: 24 }}></th>
-                  <th className="col-article">
-                    {t("col_article_no")}
-                    <span className="sort-icon">↓</span>
-                  </th>
-                  <th className="col-article">
-                    {t("col_product")}
-                    <span className="sort-icon">↓</span>
-                  </th>
+                  <th className="col-article">{t("col_article_no")}</th>
+                  <th className="td-product">{t("col_product")}</th>
                   <th className="col-inprice">{t("col_buy_price")}</th>
                   <th className="td-price">{t("col_sell_price")}</th>
                   <th className="col-unit">{t("col_unit")}</th>
                   <th className="col-instock">{t("col_in_stock")}</th>
                   <th className="col-desc">{t("col_description")}</th>
-                  <th></th>
                   <th></th>
                 </tr>
               </thead>

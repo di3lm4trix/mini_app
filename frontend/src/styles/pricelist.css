@@ -3,7 +3,8 @@
   --header-cyan: #29b6f6;
   --text-gray: #666;
   --border-color: #d1d9e0;
-  --bg-light: #f8f8fa;
+  --bg-light: #fff;
+  --border-gray: #eeeeee;
 }
 
 /* congigurar como grid */
@@ -62,10 +63,6 @@
 .pl-header__lang img {
   width: 30px;
 }
-.pl-search-wrap__icon svg {
-  width: 40px;
-  height: 40px;
-}
 
 /* SIDEBAR */
 .pl-sidebar {
@@ -76,12 +73,120 @@
 /* CONTENIDO */
 .pl-content {
   grid-area: main;
-  background: yellow;
+  background: var(--bg-light);
+}
+/* contenedor de toda la toolbar hasta la tabla */
+.pl-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+}
+/* 2 contenedores de busqueda */
+.pl-search-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+/* contededor de las barras de busqueda */
+.pl-search-wrap {
+  position: relative;
+  width: 100%;
+}
+/* cuadro de busquea */
+.pl-search-wrap input {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 50px;
+  border: solid 1px var(--border-gray);
+  min-height: 2rem;
+  padding: 0 10px;
+}
+/* icono de lupa */
+.pl-search-wrap__icon {
+  position: absolute;
+  right: 12px;
+  left: auto;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+/* estilo del icono de lupa */
+.pl-search-wrap__icon img {
+  width: 20px;
+  height: 20px;
+}
+/* boton de mas, imprimir, modo avanzado, contenedor principal */
+.pl-action-btns {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+/* texto de los botones de accion, desactivado en mobile */
+.pl-action-btns button p {
+  display: none;
+}
+/* boton individual */
+.pl-btn {
+  width: 6rem;
+  border-radius: 10rem;
+  min-height: 3rem;
+  border: none;
+  background: var(--bg-light);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+/* svg del icono del boton */
+.pl-btn img {
+  width: 1.5rem;
+  height: auto;
+}
+/* TABLA  */
+.pl-table-wrap th {
+  text-align: start;
+}
+
+.td-arrow {
+  opacity: 0;
+  pointer-events: none;
+}
+td input {
+  border: 1px solid var(--header-cyan);
+  min-height: 2rem;
+  border-radius: 20rem;
+  padding: 0 1rem;
+}
+
+.col-product {
+  width: 70%;
+}
+.td-price {
+  width: 30%;
+}
+.btn-dots {
+  background: var(--bg-light);
+  min-height: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  font-size: 1rem;
+  color: var(--header-cyan);
+  font-weight: 600;
 }
 
 /* OCULTAR COLUMNAS  */
 .col-article,
-.con-inprice {
+.col-inprice,
+.col-unit,
+.col-instock,
+.col-desc {
   display: none;
 }
 /* FOOTER */
