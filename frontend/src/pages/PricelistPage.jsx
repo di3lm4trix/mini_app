@@ -77,30 +77,22 @@ const PricelistPage = () => {
     );
   }
   return (
+    // la pagina entera
     <div className="pricelist-page">
       <header className="pl-header">
-        <div className="pl-header__group-left">
+        {/* MOBILE */}
+        <div className="pl-header-mobile">
           <button className="pl-hamburger-mobile">
             <span></span>
             <span></span>
             <span></span>
           </button>
+        </div>
+
+        <div className="pl-header__group-left">
           <div className="pl-header__avatar-container">
-            <div className="pl-header__avatar">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                />
-              </svg>
-            </div>
+            <div className="pl-header__avatar"></div>
+
             <div className="pl-header__user-info">
               <div className="pl-header__username">
                 {user?.username ?? "Admin"}
@@ -109,6 +101,7 @@ const PricelistPage = () => {
             </div>
           </div>
         </div>
+
         <div className="pl-header__right-group">
           <button
             className="pl-header__lang"
@@ -119,173 +112,160 @@ const PricelistPage = () => {
           </button>
         </div>
       </header>
-      {/* mobile menu */}
-      <nav className={`pl-mobile-nav ${menuOpen ? "is-open" : ""}`}>
+
+      {/* body include a si*/}
+      {/* sidebar only desktop */}
+      <aside className="pl-sidebar">
+        <div className="pl-sidebar__title">{t("sidebar_title")}</div>
         {SIDEBAR_ITEMS.map((item) => (
           <a
             key={item.key}
             href={item.href}
-            className="pl-mobile-nav__item"
-            onClick={() => setMenuOpen(false)}
+            className={`pl-sidebar__item ${item.active ? "active" : ""}`}
           >
-            <span>{item.icon}</span>
+            <span className="pl-sidebar__icon">{item.icon}</span>
             {t(item.key)}
           </a>
         ))}
+        <div className="pl-sidebar__logout">
+          <button className="pl-sidebar__item" onClick={handleLogout}>
+            <span className="pl-sidebar__icon">🔚</span>
+            {t("btn_logout")}
+          </button>
+        </div>
+      </aside>
+      {/* contenido principal */}
+      <main className="pl-content">
+        <div className="pl-toolbar">
+          <div className="pl-search-group">
+            {/* search article */}
+            <div className="pl-search-wrap">
+              <input
+                type="text"
+                placeholder={t("search_article")}
+                value={searchArticle}
+                onChange={(e) => setSearchArticle(e.target.value)}
+              />
 
-        <button className="pl-mobile-nav__item" onClick={handleLogout}>
-          <span>🔚</span>
-          {t("btn_logout")}
-        </button>
-      </nav>
+              <span className="pl-search-wrap__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>
+              </span>
+            </div>
+            {/* search product */}
+            <div className="pl-search-wrap">
+              <input
+                type="text"
+                placeholder={t("search_product")}
+                value={searchProduct}
+                onChange={(e) => setSearchProduct(e.target.value)}
+              />
 
-      {/* body */}
-      <div className="pl-body">
-        {/* sidebar only desktop */}
-        <aside className="pl-sidebar">
-          <div className="pl-sidebar__title">{t("sidebar_title")}</div>
-          {SIDEBAR_ITEMS.map((item) => (
-            <a
-              key={item.key}
-              href={item.href}
-              className={`pl-sidebar__item ${item.active ? "active" : ""}`}
-            >
-              <span className="pl-sidebar__icon">{item.icon}</span>
-              {t(item.key)}
-            </a>
-          ))}
-          <div className="pl-sidebar__logout">
-            <button className="pl-sidebar__item" onClick={handleLogout}>
-              <span className="pl-sidebar__icon">🔚</span>
-              {t("btn_logout")}
+              <span className="pl-search-wrap__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.35-4.35" />
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div className="pl-action-btns">
+            <button className="pl-btn" title={t("btn_new_product")}>
+              <p>{t("new_product_button")}</p>
+              <div className="pl-btn__icon pl-btn__icon--add">+</div>
+            </button>
+            <button className="pl-btn" title={t("btn_print")}>
+              <p>{t("print_button")}</p>
+
+              <div className="pl-btn__icon pl-btn__icon--print">🖨️</div>
+            </button>
+            <button className="pl-btn" title={t("btn_advanced")}>
+              <p>{t("btn_advanced")}</p>
+
+              <div className="pl-btn__icon pl-btn__icon--toggle">🔼</div>
             </button>
           </div>
-        </aside>
+        </div>
 
-        <main className="pl-content">
-          <div className="pl-toolbar">
-            <div className="pl-search-group">
-              {/* search article */}
-              <div className="pl-search-wrap">
-                <input
-                  type="text"
-                  placeholder={t("search_article")}
-                  value={searchArticle}
-                  onChange={(e) => setSearchArticle(e.target.value)}
-                />
+        {/* table */}
 
-                <span className="pl-search-wrap__icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.35-4.35" />
-                  </svg>
-                </span>
-              </div>
-              {/* search product */}
-              <div className="pl-search-wrap">
-                <input
-                  type="text"
-                  placeholder={t("search_product")}
-                  value={searchProduct}
-                  onChange={(e) => setSearchProduct(e.target.value)}
-                />
-
-                <span className="pl-search-wrap__icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.35-4.35" />
-                  </svg>
-                </span>
-              </div>
-            </div>
-
-            <div className="pl-action-btns">
-              <button className="pl-btn" title={t("btn_new_product")}>
-                <p>{t("new_product_button")}</p>
-                <div className="pl-btn__icon pl-btn__icon--add">+</div>
-              </button>
-              <button className="pl-btn" title={t("btn_print")}>
-                <p>{t("print_button")}</p>
-
-                <div className="pl-btn__icon pl-btn__icon--print">🖨️</div>
-              </button>
-              <button className="pl-btn" title={t("btn_advanced")}>
-                <p>{t("btn_advanced")}</p>
-
-                <div className="pl-btn__icon pl-btn__icon--toggle">🔼</div>
-              </button>
-            </div>
-          </div>
-
-          {/* table */}
-
-          <div className="pl-table-wrap">
-            {loading && (
-              <p style={{ color: "#888", padding: "20px 0" }}>Loading...</p>
-            )}
-            {error && (
-              <p style={{ color: "#e53224", padding: "20px 0" }}>{error}</p>
-            )}
-            {!loading && !error && (
-              <table className="pl-table">
-                <thead>
+        <div className="pl-table-wrap">
+          {loading && (
+            <p style={{ color: "#888", padding: "20px 0" }}>Loading...</p>
+          )}
+          {error && (
+            <p style={{ color: "#e53224", padding: "20px 0" }}>{error}</p>
+          )}
+          {!loading && !error && (
+            <table className="pl-table">
+              <thead>
+                <tr>
+                  <th style={{ width: 24 }}></th>
+                  <th className="col-article">
+                    {t("col_article_no")}
+                    <span className="sort-icon">↓</span>
+                  </th>
+                  <th className="col-article">
+                    {t("col_product")}
+                    <span className="sort-icon">↓</span>
+                  </th>
+                  <th className="col-inprice">{t("col_buy_price")}</th>
+                  <th className="td-price">{t("col_sell_price")}</th>
+                  <th className="col-unit">{t("col_unit")}</th>
+                  <th className="col-instock">{t("col_in_stock")}</th>
+                  <th className="col-desc">{t("col_description")}</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((product) => (
+                  <ProductRow
+                    key={product.id}
+                    product={product}
+                    translations={translations}
+                  />
+                ))}
+                {filtered.length === 0 && (
                   <tr>
-                    <th style={{ width: 24 }}></th>
-                    <th className="col-article">
-                      {t("col_article_no")}
-                      <span className="sort-icon">↓</span>
-                    </th>
-                    <th className="col-article">
-                      {t("col_product")}
-                      <span className="sort-icon">↓</span>
-                    </th>
-                    <th className="col-inprice">{t("col_buy_price")}</th>
-                    <th>{t("col_sell_price")}</th>
-                    <th className="col-unit">{t("col_unit")}</th>
-                    <th className="col-instock">{t("col_in_stock")}</th>
-                    <th className="col-desc">{t("col_description")}</th>
-                    <th></th>
-                    <th></th>
+                    <td
+                      colSpan="10"
+                      style={{
+                        textAlign: "center",
+                        padding: "32px",
+                        color: "#aaa",
+                      }}
+                    >
+                      {t("no_results")}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((product) => (
-                    <ProductRow
-                      key={product.id}
-                      product={product}
-                      translations={translations}
-                    />
-                  ))}
-                  {filtered.length === 0 && (
-                    <tr>
-                      <td
-                        colSpan="10"
-                        style={{
-                          textAlign: "center",
-                          padding: "32px",
-                          color: "#aaa",
-                        }}
-                      >
-                        {t("no_results")}
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            )}
-          </div>
-        </main>
-      </div>
+                )}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </main>
+      <footer className="pl-footer">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+          obcaecati nesciunt est quae fugit recusandae eum mollitia neque
+          corrupti sequi beatae pariatur sint at, quas officia voluptates
+          tenetur! Quae, tempora?
+        </p>
+      </footer>
     </div>
   );
 };
