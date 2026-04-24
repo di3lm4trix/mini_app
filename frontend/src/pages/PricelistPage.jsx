@@ -244,14 +244,6 @@ const PricelistPage = () => {
           )}
         </div>
       </main>
-      <footer className="pl-footer">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-          obcaecati nesciunt est quae fugit recusandae eum mollitia neque
-          corrupti sequi beatae pariatur sint at, quas officia voluptates
-          tenetur! Quae, tempora?
-        </p>
-      </footer>
     </div>
   );
 };
