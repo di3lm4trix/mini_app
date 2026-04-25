@@ -267,14 +267,103 @@ td input {
 }
 
 @media (max-width: 767px) and (orientation: landscape) {
+  .pl-toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .pl-search-group {
+    flex-direction: row;
+    width: 55%;
+    flex-shrink: 0;
+  }
+
+  .pl-action-btns {
+    width: auto;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .col-article,
+  .col-instock,
+  .col-unit {
+    display: table-cell;
+  }
+
+  .pl-table .col-article {
+    width: 15%;
+  }
+  .pl-table .td-product {
+    width: auto;
+  }
+  .pl-table .td-price {
+    width: 12%;
+  }
+  .pl-table .col-instock {
+    width: 12%;
+  }
+  .pl-table .col-unit {
+    width: 14%;
+  }
 }
 @media (min-width: 768px) {
+  .pl-toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .pl-search-group {
+    flex-direction: column;
+    width: 50%;
+    flex-shrink: 0;
+  }
+
+  .pl-action-btns {
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+
+  .col-article,
+  .col-instock,
+  .col-unit {
+    display: table-cell;
+  }
+
+  .pl-table .td-arrow {
+    width: 24px;
+  }
+  .pl-table .col-article {
+    width: 16%;
+  }
+  .pl-table .td-product {
+    width: auto;
+  }
+  .pl-table .td-price {
+    width: 12%;
+  }
+  .pl-table .col-instock {
+    width: 8%;
+  }
+  .pl-table .col-unit {
+    width: 10%;
+  }
+  .pl-table td:last-child,
+  .pl-table th:last-child {
+    width: 36px;
+  }
 }
 @media (min-width: 1280px) {
   /* congigurar como grid */
   .pricelist-page {
     display: grid;
-    min-height: 100vh;
+    min-height: 100dvh;
     grid-template-columns: 250px 1fr;
     grid-template-areas:
       "header header"
@@ -392,7 +481,8 @@ td input {
     background: var(--bg-light);
     height: 100%;
   }
-  .pl-sidebar__item {
+  .pl-sidebar__item,
+  .pl-sidebar-logout {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -401,6 +491,13 @@ td input {
     width: 100%;
     box-sizing: border-box;
     padding: 5px 10px;
+    border: none;
+    background: var(--bg-light);
+  }
+
+  .pl-sidebar__logout {
+    width: 100%;
+    align-items: flex-start;
   }
 
   /* CONTENT */

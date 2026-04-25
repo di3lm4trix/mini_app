@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import useTranslations from "../hooks/useTranslations";
+import useWindowWidth from "../hooks/useWindowWidth";
 import { apiClient } from "../api/client";
 import ProductRow from "../components/ProductRow";
 import "../styles/pricelist.css";
@@ -40,6 +41,8 @@ const PricelistPage = () => {
 
   const actualFlag = lang === "en" ? FLAG_EN : FLAG_SV;
   const actualLang = lang === "en" ? "English" : "Svenska";
+  const WindowWidth = useWindowWidth();
+  const isTablet = WindowWidth >= 768 && WindowWidth < 1280;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -170,6 +173,7 @@ const PricelistPage = () => {
         ))}
         <div className="pl-sidebar__logout">
           <button className="pl-sidebar__item" onClick={handleLogout}>
+            <span className="pl-sidebar__active-dot"></span>
             <span className="pl-sidebar__icon">🔚</span>
             {t("btn_logout")}
           </button>
@@ -252,8 +256,19 @@ const PricelistPage = () => {
                   <th className="td-product">{t("col_product")}</th>
                   <th className="col-inprice">{t("col_buy_price")}</th>
                   <th className="td-price">{t("col_sell_price")}</th>
-                  <th className="col-unit">{t("col_unit")}</th>
-                  <th className="col-instock">{t("col_in_stock")}</th>
+
+                  {isTablet ? (
+                    <>
+                      <th className="col-instock">{t("col_in_stock")}</th>
+                      <th className="col-unit">{t("col_unit")}</th>
+                    </>
+                  ) : (
+                    <>
+                      <th className="col-unit">{t("col_unit")}</th>
+                      <th className="col-instock">{t("col_in_stock")}</th>
+                    </>
+                  )}
+
                   <th className="col-desc">{t("col_description")}</th>
                   <th></th>
                 </tr>
@@ -264,6 +279,7 @@ const PricelistPage = () => {
                     key={product.id}
                     product={product}
                     translations={translations}
+                    reorderColumns={isTablet}
                   />
                 ))}
                 {filtered.length === 0 && (

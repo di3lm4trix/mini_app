@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../api/client";
 
-const ProductRow = ({ product }) => {
+const ProductRow = ({ product, reorderColumns }) => {
   const [fields, setFields] = useState({
     name_key: product.name_key,
     buy_price: product.buy_price,
@@ -116,33 +116,66 @@ const ProductRow = ({ product }) => {
         />
       </td>
 
-      <td className="col-unit">
-        <input
-          type="text"
-          value="pcs"
-          readOnly
-          style={{
-            background: "#f9f9f9",
-            color: "#888",
-            cursor: "default",
-            maxWidth: 90,
-          }}
-        />
-      </td>
+      {reorderColumns ? (
+        <>
+          <td className="col-instock">
+            <input
+              type="number"
+              value="0"
+              readOnly
+              style={{
+                background: "#f9f9f9",
+                color: "#888",
+                cursor: "default",
+                maxWidth: 90,
+              }}
+            />
+          </td>
+          <td className="col-unit">
+            <input
+              type="text"
+              value="pcs"
+              readOnly
+              style={{
+                background: "#f9f9f9",
+                color: "#888",
+                cursor: "default",
+                maxWidth: 90,
+              }}
+            />
+          </td>
+        </>
+      ) : (
+        <>
+          <td className="col-unit">
+            <input
+              type="text"
+              value="pcs"
+              readOnly
+              style={{
+                background: "#f9f9f9",
+                color: "#888",
+                cursor: "default",
+                maxWidth: 90,
+              }}
+            />
+          </td>
+          <td className="col-instock">
+            <input
+              type="number"
+              value="0"
+              readOnly
+              style={{
+                background: "#f9f9f9",
+                color: "#888",
+                cursor: "default",
+                maxWidth: 90,
+              }}
+            />
+          </td>
+        </>
+      )}
 
-      <td className="col-instock">
-        <input
-          type="number"
-          value="0"
-          readOnly
-          style={{
-            background: "#f9f9f9",
-            color: "#888",
-            cursor: "default",
-            maxWidth: 90,
-          }}
-        />
-      </td>
       <td className="col-desc">
         <input
           type="text"
