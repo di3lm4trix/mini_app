@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "../api/client";
-import useTranslations from "../hooks/useTranslations";
 
-const ProductRow = ({ product, translations }) => {
-  const { t, translationsLoading } = useTranslations();
-
+const ProductRow = ({ product }) => {
   const [fields, setFields] = useState({
     name_key: product.name_key,
     buy_price: product.buy_price,
@@ -18,31 +15,40 @@ const ProductRow = ({ product, translations }) => {
     setStatus("idle");
   };
 
-  const handleSave = async () => {
+  const handleBlur = (field) => async () => {
+    const original = {
+      name_key: product.name_key,
+      buy_price: Number(product.buy_price),
+      sell_price: Number(product.sell_price),
+    };
+    const current = {
+      name_key: fields.name_key,
+      buy_price: Number(fields.buy_price),
+      sell_price: Number(fields.sell_price),
+    };
+
+    const changed =
+      field === "name_key"
+        ? current.name_key !== original.name_key
+        : current[field] !== original[field];
+
+    if (!changed) return;
+
     setStatus("saving");
     setErrorMsg("");
+
     try {
       await apiClient.put(`/api/products/${product.id}`, {
-        name_key: fields.name_key,
-        buy_price: Number(fields.buy_price) || 0,
-        sell_price: Number(fields.sell_price) || 0,
+        name_key: current.name_key,
+        buy_price: current.buy_price,
+        sell_price: current.sell_price,
       });
       setStatus("saved");
     } catch (error) {
       setStatus("error");
-      console.log(error);
       setErrorMsg(error.response?.data?.message || error.message);
     }
   };
-
-  const isDirty = fields.name_key !== product.name_key;
-  Number(fields.buy_price) !== Number(product.buy_price) ||
-    Number(fields.sell_price) !== Number(product.sell_price);
-  useEffect(() => {
-    if (status !== "saved") return;
-    const id = setTimeout(() => setStatus("idle"), 2000);
-    return () => clearTimeout(id);
-  }, [status]);
 
   return (
     <tr
@@ -68,6 +74,7 @@ const ProductRow = ({ product, translations }) => {
           // value={t(translations?.[product.name_key] ?? product.name_key)}
           value={fields.name_key}
           onChange={handleChange("name_key")}
+          onBlur={handleBlur("name_key")}
           style={{ background: "#f9f9f9", cursor: "text" }}
           className="pl-input-editable"
         />
@@ -78,6 +85,7 @@ const ProductRow = ({ product, translations }) => {
           type="number"
           value={fields.buy_price}
           onChange={handleChange("buy_price")}
+          onBlur={handleBlur("buy_price")}
           min="0"
           step="0.01"
         />
@@ -88,6 +96,7 @@ const ProductRow = ({ product, translations }) => {
           type="number"
           value={fields.sell_price}
           onChange={handleChange("sell_price")}
+          onBlur={handleBlur("sell_price")}
           min="0"
           step="0.01"
         />
