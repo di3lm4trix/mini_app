@@ -6,9 +6,11 @@ import { apiClient } from "../api/client";
 import ProductRow from "../components/ProductRow";
 import "../styles/pricelist.css";
 
+// flags links
 const FLAG_EN = "https://storage.123fakturere.no/public/flags/GB.png";
 const FLAG_SV = "https://storage.123fakturere.no/public/flags/SE.png";
 
+// list of the sidebar buttons
 const SIDEBAR_ITEMS = [
   { key: "nav_invoices", icon: "🗒", href: "#" },
   { key: "nav_customers", icon: "👤", href: "#" },
@@ -24,15 +26,19 @@ const PricelistPage = () => {
   // constans
   const navigate = useNavigate();
   const { logout, user } = useContext(AppContext);
+  // this is used to manage the lang
   const { t, lang, switchLang, translations } = useTranslations();
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [menuOpen, setMenuOpen] = useState(false);
   const [searchArticle, setSearchArticle] = useState("");
   const [searchProduct, setSearchProduct] = useState("");
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
   const { translationsLoading } = useTranslations();
+
+  const actualFlag = lang === "en" ? FLAG_EN : FLAG_SV;
+  const actualLang = lang === "en" ? "English" : "Svenska";
 
   const otherLang = lang === "en" ? "sv" : "en";
   const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
@@ -91,7 +97,9 @@ const PricelistPage = () => {
 
         <div className="pl-header__group-left">
           <div className="pl-header__avatar-container">
-            <div className="pl-header__avatar"></div>
+            <div className="pl-header__avatar">
+              <img src="/assets/avatar.ico" alt="" />
+            </div>
 
             <div className="pl-header__user-info">
               <div className="pl-header__username">
@@ -103,13 +111,38 @@ const PricelistPage = () => {
         </div>
 
         <div className="pl-header__right-group">
-          <button
-            className="pl-header__lang"
-            onClick={() => switchLang(otherLang)}
-          >
-            <span className="lang-text">{otherLabel}</span>
-            <img src={otherFlag} alt={otherLabel} />
-          </button>
+          <div className="pl-lang-wrapper">
+            <button
+              className="pl-header__lang"
+              onClick={() => setLangMenuOpen((v) => !v)}
+            >
+              <span className="lang-text">{actualLang}</span>
+              <img src={actualFlag} alt={actualLang} />
+            </button>
+
+            <nav
+              className={`pl-lang-dropdown ${langMenuOpen ? "is-open" : ""}`}
+            >
+              <a
+                onClick={() => {
+                  switchLang("en");
+                  setLangMenuOpen(false);
+                }}
+              >
+                <p>English</p>
+                <img src={FLAG_EN} alt="English" />
+              </a>
+              <a
+                onClick={() => {
+                  switchLang("sv");
+                  setLangMenuOpen(false);
+                }}
+              >
+                <p>Svenska</p>
+                <img src={FLAG_SV} alt="Svenska" />
+              </a>
+            </nav>
+          </div>
         </div>
       </header>
 
