@@ -200,6 +200,17 @@ body {
   height: auto;
 }
 /* TABLA  */
+
+.pl-table th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px 4px;
+}
+
+.pl-table td {
+  padding: 4px 4px;
+}
 .td-arrow {
   opacity: 0;
   pointer-events: none;
@@ -459,6 +470,10 @@ td input {
     display: block;
   }
   /* SIDEBAR */
+  .pl-sidebar__line {
+    width: 90%;
+    border: 1px var(--primary-blue) solid;
+  }
   .pl-sidebar__active-dot {
     width: 10px;
     height: 10px;

@@ -31,30 +31,31 @@ const LoginPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
-  const otherLang = lang === "en" ? "sv" : "en";
-  const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
   const actualFlag = lang === "en" ? FLAG_EN : FLAG_SV;
   const actualLang = lang === "en" ? "English" : "Svenska";
-  const otherLabel = lang === "en" ? "Svenska" : "English";
 
   const navRef = useRef(null);
-  const langRef = useRef(null);
+  const langRefDesktop = useRef(null);
+  const langRefMobile = useRef(null);
 
   useEffect(() => {
     const handleClickoutside = (e) => {
       if (navRef.current && !navRef.current.contains(e.target)) {
         setMenuOpen(false);
       }
-      if (langRef.current && !langRef.current.contains(e.target)) {
+      if (
+        langRefDesktop.current &&
+        !langRefDesktop.current.contains(e.target) &&
+        langRefMobile.current &&
+        !langRefMobile.current.contains(e.target)
+      ) {
         setLangMenuOpen(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickoutside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickoutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickoutside);
   }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,7 +110,7 @@ const LoginPage = () => {
                 ))}
               </nav>
               {/* button occulted defect */}
-              <div className="lang-wrapper" ref={langRef}>
+              <div className="lang-wrapper" ref={langRefDesktop}>
                 <button
                   className="desktop-lang-btn"
                   onClick={() => setLangMenuOpen((v) => !v)}
@@ -183,7 +184,7 @@ const LoginPage = () => {
               </section>
               <section
                 className="header-mobile-bottom__right-controls"
-                ref={langRef}
+                ref={langRefMobile}
               >
                 <button
                   className="mobile-lang-btn"

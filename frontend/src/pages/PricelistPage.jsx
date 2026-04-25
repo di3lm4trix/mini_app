@@ -160,6 +160,7 @@ const PricelistPage = () => {
       {/* sidebar only desktop */}
       <aside className="pl-sidebar">
         <div className="pl-sidebar__title">{t("sidebar_title")}</div>
+        <span className="pl-sidebar__line"></span>
         {SIDEBAR_ITEMS.map((item) => (
           <a
             key={item.key}
@@ -237,8 +238,6 @@ const PricelistPage = () => {
             </button>
           </div>
         </div>
-
-        {/* table */}
 
         <div className="pl-table-wrap">
           {loading && (
