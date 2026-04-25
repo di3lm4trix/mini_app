@@ -156,11 +156,20 @@ body {
   height: auto;
 }
 /* TABLA  */
+.td-arrow {
+  opacity: 0;
+  pointer-events: none;
+  width: 20px;
+}
 
 .pl-table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+}
+
+.row-focused .td-arrow {
+  opacity: 1;
 }
 .pl-table-wrap {
   flex: 1 1 auto;
@@ -172,11 +181,6 @@ body {
   text-align: start;
 }
 
-.td-arrow {
-  opacity: 0;
-  pointer-events: none;
-  width: 20px;
-}
 td input {
   border: 1px solid var(--header-cyan);
   min-height: 2rem;

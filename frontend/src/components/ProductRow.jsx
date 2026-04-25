@@ -9,6 +9,7 @@ const ProductRow = ({ product }) => {
   });
   const [status, setStatus] = useState("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [focused, setFocused] = useState(false);
 
   const handleChange = (field) => (e) => {
     setFields((prev) => ({ ...prev, [field]: e.target.value }));
@@ -52,9 +53,11 @@ const ProductRow = ({ product }) => {
 
   return (
     <tr
-      className={
-        status === "saving" ? "is-saving" : status === "saved" ? "is-saved" : ""
-      }
+      className={`
+        ${focused ? "row-focused" : ""}
+        ${status === "saving" ? "is-saving" : ""}
+        ${status === "saved" ? "is-saved" : ""}
+        `}
     >
       <td className="td-arrow">⭢</td>
 
@@ -71,10 +74,14 @@ const ProductRow = ({ product }) => {
       <td className="td-product">
         <input
           type="text"
-          // value={t(translations?.[product.name_key] ?? product.name_key)}
+          // value= only in 1 languaje
           value={fields.name_key}
           onChange={handleChange("name_key")}
-          onBlur={handleBlur("name_key")}
+          onFocus={() => setFocused(true)}
+          onBlur={() => {
+            setFocused(false);
+            handleBlur("name_key")();
+          }}
           style={{ background: "#f9f9f9", cursor: "text" }}
           className="pl-input-editable"
         />
@@ -85,7 +92,11 @@ const ProductRow = ({ product }) => {
           type="number"
           value={fields.buy_price}
           onChange={handleChange("buy_price")}
-          onBlur={handleBlur("buy_price")}
+          onFocus={() => setFocused(true)}
+          onBlur={() => {
+            setFocused(false);
+            handleBlur("buy_price")();
+          }}
           min="0"
           step="0.01"
         />
@@ -96,7 +107,11 @@ const ProductRow = ({ product }) => {
           type="number"
           value={fields.sell_price}
           onChange={handleChange("sell_price")}
-          onBlur={handleBlur("sell_price")}
+          onFocus={() => setFocused(true)}
+          onBlur={() => {
+            setFocused(false);
+            handleBlur("sell_price")();
+          }}
           min="0"
           step="0.01"
         />
