@@ -74,7 +74,6 @@ const ProductRow = ({ product }) => {
       <td className="td-product">
         <input
           type="text"
-          // value= only in 1 languaje
           value={fields.name_key}
           onChange={handleChange("name_key")}
           onFocus={() => setFocused(true)}

@@ -1,10 +1,11 @@
-import { useState, useEffect, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import useTranslations from "../hooks/useTranslations";
 import { apiClient } from "../api/client";
 import ProductRow from "../components/ProductRow";
 import "../styles/pricelist.css";
+
+import { useState, useEffect, useContext, useMemo, useRef } from "react";
 
 // flags links
 const FLAG_EN = "https://storage.123fakturere.no/public/flags/GB.png";
@@ -27,22 +28,18 @@ const PricelistPage = () => {
   const navigate = useNavigate();
   const { logout, user } = useContext(AppContext);
   // this is used to manage the lang
-  const { t, lang, switchLang, translations } = useTranslations();
-
+  const { t, lang, switchLang, translations, translationsLoading } =
+    useTranslations();
+  const langRef = useRef(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchArticle, setSearchArticle] = useState("");
   const [searchProduct, setSearchProduct] = useState("");
   const [langMenuOpen, setLangMenuOpen] = useState(false);
-  const { translationsLoading } = useTranslations();
 
   const actualFlag = lang === "en" ? FLAG_EN : FLAG_SV;
   const actualLang = lang === "en" ? "English" : "Svenska";
-
-  const otherLang = lang === "en" ? "sv" : "en";
-  const otherFlag = lang === "en" ? FLAG_SV : FLAG_EN;
-  const otherLabel = lang === "en" ? "Svenska" : "English";
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -58,6 +55,16 @@ const PricelistPage = () => {
       }
     };
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   const filtered = useMemo(() => {
     return products.filter((p) => {
@@ -111,7 +118,7 @@ const PricelistPage = () => {
         </div>
 
         <div className="pl-header__right-group">
-          <div className="pl-lang-wrapper">
+          <div className="pl-lang-wrapper" ref={langRef}>
             <button
               className="pl-header__lang"
               onClick={() => setLangMenuOpen((v) => !v)}
@@ -156,6 +163,7 @@ const PricelistPage = () => {
             href={item.href}
             className={`pl-sidebar__item ${item.active ? "active" : ""}`}
           >
+            <span className="pl-sidebar__active-dot"></span>
             <span className="pl-sidebar__icon">{item.icon}</span>
             {t(item.key)}
           </a>
